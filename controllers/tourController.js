@@ -5,7 +5,6 @@ const tours = JSON.parse(
 );
 
 exports.readAllTours = (req, res) => {
-  console.log(req.reqTime);
   res.status(200).json({
     status: 'success',
     results: tours.length,

@@ -2,9 +2,9 @@
   "name": "natours",
   "version": "1.0.0",
   "description": "Learing nodejs",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node server.js"
   },
   "author": "Ibrahim Kholil",
   "license": "MIT",
