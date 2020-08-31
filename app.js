@@ -1,15 +1,19 @@
 const express = require('express');
 const app = express();
 const fs = require('fs');
-const e = require('express');
 
 app.use(express.json());
+app.use((req, res, next) => {
+  req.reqTime = new Date().toISOString();
+  next();
+});
 
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`, 'utf-8')
 );
 
 const readAllTours = (req, res) => {
+  console.log(req.reqTime);
   res.status(200).json({
     status: 'success',
     results: tours.length,
