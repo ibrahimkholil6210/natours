@@ -1,0 +1,14 @@
+{
+  "name": "natours",
+  "version": "1.0.0",
+  "description": "Learing nodejs",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "author": "Ibrahim Kholil",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
