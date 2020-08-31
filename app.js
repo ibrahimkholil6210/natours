@@ -1,7 +1,9 @@
 const express = require('express');
 const app = express();
 const fs = require('fs');
+const morgan = require('morgan');
 
+app.use(morgan('dev'));
 app.use(express.json());
 app.use((req, res, next) => {
   req.reqTime = new Date().toISOString();
@@ -67,12 +69,45 @@ const deleteSingleTour = (req, res) => {
     : res.status(204).json({ status: 'success', data: null });
 };
 
-app.route('/api/v1/tours').get(readAllTours).post(createNewTour);
-app
-  .route('/api/v1/tours/:id')
-  .get(readAllTours)
+const readAllUsers = (req, res) => {
+  res.status(500).json({ status: 'error', message: "Can't handle this route" });
+};
+
+const createNewUser = (req, res) => {
+  res.status(500).json({ status: 'error', message: "Can't handle this route" });
+};
+
+const readSigleUser = (req, res) => {
+  res.status(500).json({ status: 'error', message: "Can't handle this route" });
+};
+
+const updateSingleUser = (req, res) => {
+  res.status(500).json({ status: 'error', message: "Can't handle this route" });
+};
+
+const deleteSingleUser = (req, res) => {
+  res.status(500).json({ status: 'error', message: "Can't handle this route" });
+};
+
+const tourRouter = express.Router();
+const userRouter = express.Router();
+
+tourRouter.route('/').get(readAllTours).post(createNewTour);
+tourRouter
+  .route('/:id')
+  .get(readSigleTour)
   .patch(updateSingleTour)
   .delete(deleteSingleTour);
+
+userRouter.route('/').get(readAllUsers).post(createNewUser);
+userRouter
+  .route('/:id')
+  .get(readSigleUser)
+  .patch(updateSingleUser)
+  .delete(deleteSingleUser);
+
+app.use('/api/v1/tours', tourRouter);
+app.use('/api/v1/users', userRouter);
 
 const prot = 8000;
 app.listen(prot, () => {
