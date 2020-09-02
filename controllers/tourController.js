@@ -4,11 +4,24 @@ const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`, 'utf-8')
 );
 
+//Middleware
+
 exports.checkId = (req, res, next, val) => {
   const tour = tours.find((el) => el.id * 1 === val * 1);
   !tour
     ? res.status(404).json({ status: 'failed', message: 'Invalid ID' })
     : next();
+};
+
+exports.checkValidity = (req, res, next) => {
+  req.body.name && req.body.price
+    ? next()
+    : res
+        .status(400)
+        .json({
+          status: 'failed',
+          message: 'Bad request! missing credentials....',
+        });
 };
 
 exports.readAllTours = (req, res) => {
