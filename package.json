@@ -4,13 +4,16 @@
   "description": "Learing nodejs",
   "main": "server.js",
   "scripts": {
-    "start:dev": "nodemon server.js"
+    "start": "nodemon server.js",
+    "start:prod": "SET NODE_ENV=production && nodemon server.js"
   },
   "author": "Ibrahim Kholil",
   "license": "MIT",
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "morgan": "^1.10.0"
+    "mongoose": "^5.10.3",
+    "morgan": "^1.10.0",
+    "saslprep": "^1.0.3"
   }
 }
