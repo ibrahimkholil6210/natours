@@ -1,6 +1,7 @@
 const fs = require('fs');
 const Tour = require('../models/Tour');
 const APIFeatures = require('./../utils/apiFeatures');
+const { exception } = require('console');
 
 exports.aliastopTours = (req, res, next) => {
   req.query.limit = '5';
@@ -114,6 +115,47 @@ exports.getStats = async (req, res) => {
       },
     ]);
     res.status(200).json({ status: 'success', data: { stats } });
+  } catch (err) {
+    res.status(404).json({ status: 'failed', message: err });
+  }
+};
+
+exports.getMonthlyPlan = async (req, res) => {
+  const year = req.params.year * 1;
+
+  try {
+    const plans = await Tour.aggregate([
+      {
+        $unwind: '$startDates',
+      },
+      {
+        $match: {
+          startDates: {
+            $gte: new Date(`${year}-01-01`),
+            $lte: new Date(`${year}-12-31`),
+          },
+        },
+      },
+      {
+        $group: {
+          _id: { $month: '$startDates' },
+          numTourStarts: { $sum: 1 },
+          tours: { $push: '$name' },
+        },
+      },
+      {
+        $addFields: { month: '$_id' },
+      },
+      {
+        $project: {
+          _id: 0,
+        },
+      },
+      {
+        $sort: { numTourStarts: -1 },
+      },
+    ]);
+    res.status(200).json({ status: 'success', data: { plans } });
   } catch (err) {
     res.status(404).json({ status: 'failed', message: err });
   }
