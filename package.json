@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "start:prod": "SET NODE_ENV=production && nodemon server.js"
+    "start:prod": "SET NODE_ENV=production && nodemon server.js",
+    "debug": "ndb server.js"
   },
   "author": "Ibrahim Kholil",
   "license": "MIT",
@@ -16,5 +17,8 @@
     "morgan": "^1.10.0",
     "saslprep": "^1.0.3",
     "slugify": "^1.4.5"
+  },
+  "devDependencies": {
+    "ndb": "^1.1.5"
   }
 }

@@ -17,7 +17,9 @@ mongoose
   })
   .catch((err) => console.log(err));
 
-app.listen(process.env.PORT, () => {
+const port = process.env.PORT || 3030;
+
+app.listen(port, () => {
   if (process.env.NODE_ENV.trim() == 'production') {
     console.log(
       'Danger::In Production! application running on port:' + process.env.PORT
