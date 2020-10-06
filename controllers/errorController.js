@@ -5,6 +5,12 @@ handleCastErrorDB = (err) => {
   return new AppError(message, 400);
 };
 
+handleDuplicateKeyErrorDB = (err) => {
+  const value = err.errmsg.match(/(["'])(?:(?=(\\?))\2.)*?\1/)[0];
+  const message = `Duplicate field value: ${value}. Use unique value`;
+  return new AppError(message, 400);
+};
+
 sendErrorDev = (res, err) => {
   res.status(err.statusCode).json({
     status: err.status,
@@ -37,6 +43,9 @@ module.exports = (err, req, res, next) => {
   } else if (process.env.NODE_ENV.trim() === 'production') {
     let error = Object.assign({}, err, { message: err.message });
     if (error.kind === 'ObjectId') error = handleCastErrorDB(err);
+    if (error.code === 11000) error = handleDuplicateKeyErrorDB(err);
+    if (error._message === 'Validation failed')
+      error = new AppError(error.message, 400);
     sendErrorProd(res, error);
   }
 
