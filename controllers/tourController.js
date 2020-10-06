@@ -3,7 +3,6 @@ const Tour = require('../models/Tour');
 const APIFeatures = require('./../utils/apiFeatures');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
-const { exception } = require('console');
 
 exports.aliastopTours = (req, res, next) => {
   req.query.limit = '5';
