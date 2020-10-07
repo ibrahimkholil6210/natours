@@ -16,7 +16,8 @@
     "mongoose": "^5.10.3",
     "morgan": "^1.10.0",
     "saslprep": "^1.0.3",
-    "slugify": "^1.4.5"
+    "slugify": "^1.4.5",
+    "validator": "^13.1.17"
   },
   "devDependencies": {
     "ndb": "^1.1.5"
