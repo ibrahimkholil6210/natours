@@ -9,7 +9,7 @@ router.route('/login').post(authController.login);
 
 router
   .route('/')
-  .get(userController.readAllUsers)
+  .get(authController.protect, userController.readAllUsers)
   .post(userController.createNewUser);
 
 router
