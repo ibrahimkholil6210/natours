@@ -14,6 +14,21 @@ exports.readAllUsers = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.updateMe = (req, res, next) => {
+  if (req.body.password || req.body.passwordConfirm) {
+    return next(
+      new AppError(
+        'This route is not for password update. Please use /forgot-password',
+        400
+      )
+    );
+  }
+
+  res.status(200).json({
+    status: 'success',
+  });
+};
+
 exports.createNewUser = (req, res) => {
   res.status(500).json({ status: 'error', message: "Can't handle this route" });
 };
